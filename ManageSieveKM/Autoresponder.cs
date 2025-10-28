@@ -13,12 +13,11 @@ using System.Xml.Linq;
 
 namespace ManageSieveKM
 {
-    public partial class Autoresponder : Form
+    public partial class Autoresponder : FormT
     {
         private string newScript, oldScript;
-        private int lastRule = 0;
         private bool ifAutoresponder = false;
-        public Autoresponder(string script, int lastRule)
+        public Autoresponder(string script)
         {
             InitializeComponent();
             this.oldScript = script;
@@ -48,7 +47,6 @@ namespace ManageSieveKM
         }
 
         public string NewScript { get => newScript; set => newScript = value; }
-        public int LastRule { get => lastRule; set => lastRule = value; }
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -110,7 +108,6 @@ namespace ManageSieveKM
                 this.newScript = this.oldScript.Substring(0, i) + autoresponder +
                     this.oldScript.Substring(i2 + 2, this.oldScript.Length - i2 - 2);
             }
-            this.LastRule = cbRules.SelectedIndex;
             this.DialogResult = DialogResult.OK;
         }
 

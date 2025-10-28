@@ -2,23 +2,26 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Win32;
+using System.Net;
+using System.IO;
 
 namespace ManageSieveKM
 {
-    public partial class Form1 : Form
+    public partial class Form1 : FormT
     {
-        private RegistryKey currentUser = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64); //here you specify where exactly you want your entry
+        private RegistryKey currentUser = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64);
         private RegistryKey reg;
         private SieveConnect sieve;
         private string encryptionKey = Utils.GetEncryptionKey();
         private List<SieveScript> listS;
-        private int lastRule = 0;
+        private WebClient webclient = new WebClient();
 
         public Form1(bool flushConfig = false)
         {
@@ -100,16 +103,60 @@ namespace ManageSieveKM
             {
                 chbAutoresponder.Checked = Convert.ToBoolean(reg.GetValue("showOnlyAutoresponder"));
             }
-            //lastRule
-            if (reg.GetValue("lastRule") == null)
+            //fontSize
+            if (reg.GetValue("fontSize") == null)
             {
-                reg.SetValue("lastRule", "");
+                reg.SetValue("fontSize", "12");
             }
             else
             {
-                if (int.TryParse(reg.GetValue("lastRule").ToString(), out this.lastRule) == false)
+                decimal fs = 12;
+                if (decimal.TryParse(reg.GetValue("fontSize").ToString(), out fs))
                 {
-                    this.lastRule = -1;
+
+                }
+                numericFontSize.Value = fs;
+            }
+            //checkUpdate
+            if (reg.GetValue("checkUpdate") == null)
+            {
+                reg.SetValue("checkUpdate", true.ToString());
+            }
+            else
+            {
+                chbUpdate.Checked = Convert.ToBoolean(reg.GetValue("checkUpdate"));
+            }
+            //update
+            if (chbUpdate.Checked)
+            {
+                string file0;
+                try
+                {
+                    string version = this.webclient.DownloadString("https://raw.githubusercontent.com/kamilmroczkowski/ManageSieveKM/refs/heads/main/Releases/version.txt").Trim();
+                    if (System.Reflection.Assembly.GetEntryAssembly().GetName().Version.ToString() != version)
+                    {
+                        file0 = "ManageSieveKM.exe";
+                        if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + file0))
+                        {
+                            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + file0 + ".bak"))
+                            {
+                                File.Delete(AppDomain.CurrentDomain.BaseDirectory + file0 + ".bak");
+                            }
+                            File.Move(AppDomain.CurrentDomain.BaseDirectory + file0, AppDomain.CurrentDomain.BaseDirectory + file0 + ".bak");
+                        }
+                        this.webclient.DownloadFile(new Uri("https://raw.githubusercontent.com/kamilmroczkowski/ManageSieveKM/refs/heads/main/Releases/" + version + "/" + file0), AppDomain.CurrentDomain.BaseDirectory + file0);
+                        Process.Start(Application.ExecutablePath);
+                        Process.GetCurrentProcess().Kill();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    string error = ex.Message;
+                    if (ex.InnerException != null)
+                    {
+                        error += Environment.NewLine + ex.InnerException.Message;
+                    }
+                    MessageBox.Show("Update error: " + error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             //Show autoresponder only
@@ -133,12 +180,11 @@ namespace ManageSieveKM
                             i++;
                         }
                         this.sieve.Disconnect();
-                        Autoresponder a = new Autoresponder(tbScript.Text, this.lastRule);
+                        Autoresponder a = new Autoresponder(tbScript.Text);
                         a.ShowDialog();
                         if (a.DialogResult == DialogResult.OK)
                         {
                             tbScript.Text = a.NewScript;
-                            reg.SetValue("lastRule", a.LastRule);
                             this.Send();
                         }
                     }
@@ -235,14 +281,10 @@ namespace ManageSieveKM
                     lbScripts.Items.Add(s.Name + ((s.Active) ? " (ACTIVE)" : ""));
                 }
                 this.sieve.Disconnect();
-            }
-        }
-
-        private void lbScripts_MouseClick(object sender, MouseEventArgs e)
-        {
-            if (lbScripts.SelectedIndex > -1)
-            {
-                tbScript.Text = listS[lbScripts.SelectedIndex].Script;
+                if (lbScripts.Items.Count > 0)
+                {
+                    lbScripts.SelectedIndex = 0;
+                }
             }
         }
 
@@ -250,12 +292,11 @@ namespace ManageSieveKM
         {
             if (tbScript.Text.Length > 0)
             {
-                Autoresponder a = new Autoresponder(tbScript.Text, this.lastRule);
+                Autoresponder a = new Autoresponder(tbScript.Text);
                 a.ShowDialog();
                 if (a.DialogResult == DialogResult.OK)
                 {
                     tbScript.Text = a.NewScript;
-                    reg.SetValue("lastRule", a.LastRule);
                 }
             }
         }
@@ -304,6 +345,19 @@ namespace ManageSieveKM
             if (chbAutoresponder.Checked)
             {
                 this.Close();
+            }
+        }
+
+        private void numericFontSize_Leave(object sender, EventArgs e)
+        {
+            reg.SetValue("fontSize", numericFontSize.Value.ToString());
+        }
+
+        private void lbScripts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lbScripts.SelectedIndex > -1)
+            {
+                tbScript.Text = listS[lbScripts.SelectedIndex].Script;
             }
         }
     }

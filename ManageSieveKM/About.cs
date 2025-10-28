@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace ManageSieveKM
 {
-    public partial class About : Form
+    public partial class About : FormT
     {
         public About()
         {
