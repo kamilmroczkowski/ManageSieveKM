@@ -126,6 +126,15 @@ namespace ManageSieveKM
             {
                 chbDebug.Checked = Convert.ToBoolean(reg.GetValue("debug"));
             }
+            //fixBuffor
+            if (reg.GetValue("fixBuffor") == null)
+            {
+                reg.SetValue("fixBuffor", false.ToString());
+            }
+            else
+            {
+                chbFixBuffor.Checked = Convert.ToBoolean(reg.GetValue("fixBuffor"));
+            }
             //checkUpdate
             if (reg.GetValue("checkUpdate") == null)
             {
@@ -152,22 +161,25 @@ namespace ManageSieveKM
                     }
                     if (System.Reflection.Assembly.GetEntryAssembly().GetName().Version.ToString() != version.Trim())
                     {
-                        if (chbDebug.Checked)
+                        if (MessageBox.Show("Release new version - apply update program?", "Update", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
                         {
-                            Utils.LogToFile("Version is diffrent... update.");
-                        }
-                        file0 = "ManageSieveKM.exe";
-                        if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + file0))
-                        {
-                            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + file0 + ".bak"))
+                            if (chbDebug.Checked)
                             {
-                                File.Delete(AppDomain.CurrentDomain.BaseDirectory + file0 + ".bak");
+                                Utils.LogToFile("Version is diffrent... update.");
                             }
-                            File.Move(AppDomain.CurrentDomain.BaseDirectory + file0, AppDomain.CurrentDomain.BaseDirectory + file0 + ".bak");
+                            file0 = "ManageSieveKM.exe";
+                            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + file0))
+                            {
+                                if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + file0 + ".bak"))
+                                {
+                                    File.Delete(AppDomain.CurrentDomain.BaseDirectory + file0 + ".bak");
+                                }
+                                File.Move(AppDomain.CurrentDomain.BaseDirectory + file0, AppDomain.CurrentDomain.BaseDirectory + file0 + ".bak");
+                            }
+                            this.webclient.DownloadFile(new Uri("https://raw.githubusercontent.com/kamilmroczkowski/ManageSieveKM/refs/heads/main/Releases/" + version + "/" + file0), AppDomain.CurrentDomain.BaseDirectory + file0);
+                            Process.Start(Application.ExecutablePath);
+                            Process.GetCurrentProcess().Kill();
                         }
-                        this.webclient.DownloadFile(new Uri("https://raw.githubusercontent.com/kamilmroczkowski/ManageSieveKM/refs/heads/main/Releases/" + version + "/" + file0), AppDomain.CurrentDomain.BaseDirectory + file0);
-                        Process.Start(Application.ExecutablePath);
-                        Process.GetCurrentProcess().Kill();
                     }
                 }
                 catch (Exception ex)
@@ -326,7 +338,7 @@ namespace ManageSieveKM
         {
             if (this.Connect())
             {
-                if (sieve.SendScript(this.listS[lbScripts.SelectedIndex].Name, tbScript.Text) == false)
+                if (sieve.SendScript(this.listS[lbScripts.SelectedIndex].Name, tbScript.Text, chbFixBuffor.Checked) == false)
                 {
                     MessageBox.Show("Can't send script! Error: " + this.sieve.Errors, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
@@ -390,6 +402,11 @@ namespace ManageSieveKM
         private void chbUpdate_CheckedChanged(object sender, EventArgs e)
         {
             reg.SetValue("checkUpdate", chbUpdate.Checked.ToString());
+        }
+
+        private void chbFixBuffor_CheckedChanged(object sender, EventArgs e)
+        {
+            reg.SetValue("fixBuffor", chbFixBuffor.Checked.ToString());
         }
     }
 }

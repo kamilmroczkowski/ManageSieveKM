@@ -274,11 +274,15 @@ namespace ManageSieveKM
             return count;
         }
 
-        public bool SendScript(string name, string body)
+        public bool SendScript(string name, string body, bool fixBuffor)
         {
             bool ret = false;
             string r = "", output = "";
-            int bodyL = body.Length + this.CountOccurrences(body, "# rule:");
+            int bodyL = body.Length;
+            if (fixBuffor)
+            {
+                bodyL += this.CountOccurrences(body, "# rule:");
+            }
             try
             {
                 //check quota

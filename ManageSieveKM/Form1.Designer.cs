@@ -52,6 +52,7 @@
             this.btAutoresponder = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.tbScript = new System.Windows.Forms.TextBox();
+            this.chbFixBuffor = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericFontSize)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -152,6 +153,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.chbFixBuffor);
             this.groupBox1.Controls.Add(this.numericFontSize);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.chbUpdate);
@@ -357,6 +359,19 @@
             this.tbScript.Size = new System.Drawing.Size(789, 338);
             this.tbScript.TabIndex = 0;
             // 
+            // chbFixBuffor
+            // 
+            this.chbFixBuffor.AutoSize = true;
+            this.chbFixBuffor.Checked = true;
+            this.chbFixBuffor.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chbFixBuffor.Location = new System.Drawing.Point(131, 187);
+            this.chbFixBuffor.Name = "chbFixBuffor";
+            this.chbFixBuffor.Size = new System.Drawing.Size(85, 21);
+            this.chbFixBuffor.TabIndex = 16;
+            this.chbFixBuffor.Text = "Fix buffor";
+            this.chbFixBuffor.UseVisualStyleBackColor = true;
+            this.chbFixBuffor.CheckedChanged += new System.EventHandler(this.chbFixBuffor_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -409,6 +424,7 @@
         private System.Windows.Forms.CheckBox chbUpdate;
         private System.Windows.Forms.NumericUpDown numericFontSize;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.CheckBox chbFixBuffor;
     }
 }
 
