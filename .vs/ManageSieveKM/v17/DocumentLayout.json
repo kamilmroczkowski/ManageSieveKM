@@ -1,12 +1,105 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\kmroczkowski\\source\\repos\\ManageSieveKM\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|ManageSieveKM||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8AC9990E-9DC7-42EA-B057-907DAB17535E}|ManageSieveKM\\ManageSieveKM.csproj|c:\\users\\kmroczkowski\\source\\repos\\managesievekm\\managesievekm\\utils.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8AC9990E-9DC7-42EA-B057-907DAB17535E}|ManageSieveKM\\ManageSieveKM.csproj|solutionrelative:managesievekm\\utils.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8AC9990E-9DC7-42EA-B057-907DAB17535E}|ManageSieveKM\\ManageSieveKM.csproj|c:\\users\\kmroczkowski\\source\\repos\\managesievekm\\managesievekm\\sieveconnect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8AC9990E-9DC7-42EA-B057-907DAB17535E}|ManageSieveKM\\ManageSieveKM.csproj|solutionrelative:managesievekm\\sieveconnect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8AC9990E-9DC7-42EA-B057-907DAB17535E}|ManageSieveKM\\ManageSieveKM.csproj|c:\\users\\kmroczkowski\\source\\repos\\managesievekm\\managesievekm\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8AC9990E-9DC7-42EA-B057-907DAB17535E}|ManageSieveKM\\ManageSieveKM.csproj|solutionrelative:managesievekm\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8AC9990E-9DC7-42EA-B057-907DAB17535E}|ManageSieveKM\\ManageSieveKM.csproj|c:\\users\\kmroczkowski\\source\\repos\\managesievekm\\managesievekm\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{8AC9990E-9DC7-42EA-B057-907DAB17535E}|ManageSieveKM\\ManageSieveKM.csproj|solutionrelative:managesievekm\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8AC9990E-9DC7-42EA-B057-907DAB17535E}|ManageSieveKM\\ManageSieveKM.csproj|c:\\users\\kmroczkowski\\source\\repos\\managesievekm\\managesievekm\\||{B270807C-D8C6-49EB-8EBE-8E8D566637A1}|5e9a8ac2-4f34-4521-858f-4c248ba31532"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ManageSieveKM",
+              "DocumentMoniker": "C:\\Users\\kmroczkowski\\source\\repos\\ManageSieveKM\\ManageSieveKM\\ManageSieveKM.csproj",
+              "RelativeDocumentMoniker": "ManageSieveKM\\ManageSieveKM.csproj",
+              "ToolTip": "C:\\Users\\kmroczkowski\\source\\repos\\ManageSieveKM\\ManageSieveKM\\ManageSieveKM.csproj",
+              "RelativeToolTip": "ManageSieveKM\\ManageSieveKM.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-10-28T11:00:28.755Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Utils.cs",
+              "DocumentMoniker": "C:\\Users\\kmroczkowski\\source\\repos\\ManageSieveKM\\ManageSieveKM\\Utils.cs",
+              "RelativeDocumentMoniker": "ManageSieveKM\\Utils.cs",
+              "ToolTip": "C:\\Users\\kmroczkowski\\source\\repos\\ManageSieveKM\\ManageSieveKM\\Utils.cs",
+              "RelativeToolTip": "ManageSieveKM\\Utils.cs",
+              "ViewState": "AgIAAF0AAAAAAAAAAIAwwG0AAACWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-28T10:58:40.585Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "SieveConnect.cs",
+              "DocumentMoniker": "C:\\Users\\kmroczkowski\\source\\repos\\ManageSieveKM\\ManageSieveKM\\SieveConnect.cs",
+              "RelativeDocumentMoniker": "ManageSieveKM\\SieveConnect.cs",
+              "ToolTip": "C:\\Users\\kmroczkowski\\source\\repos\\ManageSieveKM\\ManageSieveKM\\SieveConnect.cs",
+              "RelativeToolTip": "ManageSieveKM\\SieveConnect.cs",
+              "ViewState": "AgIAADUAAAAAAAAAAAAIwD0AAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-28T10:47:53.741Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "C:\\Users\\kmroczkowski\\source\\repos\\ManageSieveKM\\ManageSieveKM\\Form1.cs",
+              "RelativeDocumentMoniker": "ManageSieveKM\\Form1.cs",
+              "ToolTip": "C:\\Users\\kmroczkowski\\source\\repos\\ManageSieveKM\\ManageSieveKM\\Form1.cs",
+              "RelativeToolTip": "ManageSieveKM\\Form1.cs",
+              "ViewState": "AgIAAH4AAAAAAAAAAAAAAI4AAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-28T10:46:00.113Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Form1.cs [Projekt]",
+              "DocumentMoniker": "C:\\Users\\kmroczkowski\\source\\repos\\ManageSieveKM\\ManageSieveKM\\Form1.cs",
+              "RelativeDocumentMoniker": "ManageSieveKM\\Form1.cs",
+              "ToolTip": "C:\\Users\\kmroczkowski\\source\\repos\\ManageSieveKM\\ManageSieveKM\\Form1.cs [Projekt]",
+              "RelativeToolTip": "ManageSieveKM\\Form1.cs [Projekt]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-28T10:45:57.789Z",
+              "EditorCaption": " [Projekt]"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

@@ -117,6 +117,15 @@ namespace ManageSieveKM
                 }
                 numericFontSize.Value = fs;
             }
+            //Debug
+            if (reg.GetValue("debug") == null)
+            {
+                reg.SetValue("debug", false.ToString());
+            }
+            else
+            {
+                chbDebug.Checked = Convert.ToBoolean(reg.GetValue("debug"));
+            }
             //checkUpdate
             if (reg.GetValue("checkUpdate") == null)
             {
@@ -129,12 +138,24 @@ namespace ManageSieveKM
             //update
             if (chbUpdate.Checked)
             {
+                if (chbDebug.Checked)
+                {
+                    Utils.LogToFile("Check update...");
+                }
                 string file0;
                 try
                 {
                     string version = this.webclient.DownloadString("https://raw.githubusercontent.com/kamilmroczkowski/ManageSieveKM/refs/heads/main/Releases/version.txt").Trim();
-                    if (System.Reflection.Assembly.GetEntryAssembly().GetName().Version.ToString() != version)
+                    if (chbDebug.Checked)
                     {
+                        Utils.LogToFile("Check version in server: " + version);
+                    }
+                    if (System.Reflection.Assembly.GetEntryAssembly().GetName().Version.ToString() != version.Trim())
+                    {
+                        if (chbDebug.Checked)
+                        {
+                            Utils.LogToFile("Version is diffrent... update.");
+                        }
                         file0 = "ManageSieveKM.exe";
                         if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + file0))
                         {
@@ -359,6 +380,16 @@ namespace ManageSieveKM
             {
                 tbScript.Text = listS[lbScripts.SelectedIndex].Script;
             }
+        }
+
+        private void chbDebug_CheckedChanged(object sender, EventArgs e)
+        {
+            reg.SetValue("debug", chbDebug.Checked.ToString());
+        }
+
+        private void chbUpdate_CheckedChanged(object sender, EventArgs e)
+        {
+            reg.SetValue("checkUpdate", chbUpdate.Checked.ToString());
         }
     }
 }

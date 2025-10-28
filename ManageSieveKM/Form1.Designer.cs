@@ -61,7 +61,7 @@
             // tbHost
             // 
             this.tbHost.Location = new System.Drawing.Point(100, 23);
-            this.tbHost.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbHost.Margin = new System.Windows.Forms.Padding(4);
             this.tbHost.Name = "tbHost";
             this.tbHost.Size = new System.Drawing.Size(373, 23);
             this.tbHost.TabIndex = 0;
@@ -70,7 +70,7 @@
             // tbPort
             // 
             this.tbPort.Location = new System.Drawing.Point(100, 55);
-            this.tbPort.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbPort.Margin = new System.Windows.Forms.Padding(4);
             this.tbPort.Name = "tbPort";
             this.tbPort.Size = new System.Drawing.Size(68, 23);
             this.tbPort.TabIndex = 1;
@@ -80,7 +80,7 @@
             // tbEmail
             // 
             this.tbEmail.Location = new System.Drawing.Point(100, 87);
-            this.tbEmail.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbEmail.Margin = new System.Windows.Forms.Padding(4);
             this.tbEmail.Name = "tbEmail";
             this.tbEmail.Size = new System.Drawing.Size(373, 23);
             this.tbEmail.TabIndex = 2;
@@ -89,7 +89,7 @@
             // tbPassword
             // 
             this.tbPassword.Location = new System.Drawing.Point(100, 119);
-            this.tbPassword.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbPassword.Margin = new System.Windows.Forms.Padding(4);
             this.tbPassword.Name = "tbPassword";
             this.tbPassword.PasswordChar = '●';
             this.tbPassword.Size = new System.Drawing.Size(373, 23);
@@ -102,7 +102,7 @@
             this.chbSSL.Checked = true;
             this.chbSSL.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chbSSL.Location = new System.Drawing.Point(177, 58);
-            this.chbSSL.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chbSSL.Margin = new System.Windows.Forms.Padding(4);
             this.chbSSL.Name = "chbSSL";
             this.chbSSL.Size = new System.Drawing.Size(83, 21);
             this.chbSSL.TabIndex = 4;
@@ -169,9 +169,9 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.chbSSL);
             this.groupBox1.Location = new System.Drawing.Point(16, 15);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox1.Size = new System.Drawing.Size(491, 225);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
@@ -180,7 +180,7 @@
             // numericFontSize
             // 
             this.numericFontSize.Location = new System.Drawing.Point(411, 155);
-            this.numericFontSize.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.numericFontSize.Margin = new System.Windows.Forms.Padding(4);
             this.numericFontSize.Maximum = new decimal(new int[] {
             24,
             0,
@@ -216,17 +216,18 @@
             // 
             this.chbUpdate.AutoSize = true;
             this.chbUpdate.Location = new System.Drawing.Point(8, 187);
-            this.chbUpdate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chbUpdate.Margin = new System.Windows.Forms.Padding(4);
             this.chbUpdate.Name = "chbUpdate";
             this.chbUpdate.Size = new System.Drawing.Size(114, 21);
             this.chbUpdate.TabIndex = 12;
             this.chbUpdate.Text = "Check update";
             this.chbUpdate.UseVisualStyleBackColor = true;
+            this.chbUpdate.CheckedChanged += new System.EventHandler(this.chbUpdate_CheckedChanged);
             // 
             // btAbout
             // 
             this.btAbout.Location = new System.Drawing.Point(383, 190);
-            this.btAbout.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btAbout.Margin = new System.Windows.Forms.Padding(4);
             this.btAbout.Name = "btAbout";
             this.btAbout.Size = new System.Drawing.Size(100, 28);
             this.btAbout.TabIndex = 2;
@@ -238,7 +239,7 @@
             // 
             this.chbAutoresponder.AutoSize = true;
             this.chbAutoresponder.Location = new System.Drawing.Point(131, 156);
-            this.chbAutoresponder.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chbAutoresponder.Margin = new System.Windows.Forms.Padding(4);
             this.chbAutoresponder.Name = "chbAutoresponder";
             this.chbAutoresponder.Size = new System.Drawing.Size(188, 21);
             this.chbAutoresponder.TabIndex = 11;
@@ -250,18 +251,19 @@
             // 
             this.chbDebug.AutoSize = true;
             this.chbDebug.Location = new System.Drawing.Point(8, 156);
-            this.chbDebug.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chbDebug.Margin = new System.Windows.Forms.Padding(4);
             this.chbDebug.Name = "chbDebug";
             this.chbDebug.Size = new System.Drawing.Size(107, 21);
             this.chbDebug.TabIndex = 10;
             this.chbDebug.Text = "Debug to file";
             this.chbDebug.UseVisualStyleBackColor = true;
+            this.chbDebug.CheckedChanged += new System.EventHandler(this.chbDebug_CheckedChanged);
             // 
             // chbIgnore
             // 
             this.chbIgnore.AutoSize = true;
             this.chbIgnore.Location = new System.Drawing.Point(280, 58);
-            this.chbIgnore.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chbIgnore.Margin = new System.Windows.Forms.Padding(4);
             this.chbIgnore.Name = "chbIgnore";
             this.chbIgnore.Size = new System.Drawing.Size(185, 21);
             this.chbIgnore.TabIndex = 9;
@@ -274,9 +276,9 @@
             this.groupBox2.Controls.Add(this.btGetScripts);
             this.groupBox2.Controls.Add(this.lbScripts);
             this.groupBox2.Location = new System.Drawing.Point(515, 15);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox2.Size = new System.Drawing.Size(308, 225);
             this.groupBox2.TabIndex = 10;
             this.groupBox2.TabStop = false;
@@ -285,7 +287,7 @@
             // btGetScripts
             // 
             this.btGetScripts.Location = new System.Drawing.Point(8, 169);
-            this.btGetScripts.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btGetScripts.Margin = new System.Windows.Forms.Padding(4);
             this.btGetScripts.Name = "btGetScripts";
             this.btGetScripts.Size = new System.Drawing.Size(292, 41);
             this.btGetScripts.TabIndex = 11;
@@ -298,7 +300,7 @@
             this.lbScripts.FormattingEnabled = true;
             this.lbScripts.ItemHeight = 16;
             this.lbScripts.Location = new System.Drawing.Point(8, 23);
-            this.lbScripts.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.lbScripts.Margin = new System.Windows.Forms.Padding(4);
             this.lbScripts.Name = "lbScripts";
             this.lbScripts.ScrollAlwaysVisible = true;
             this.lbScripts.Size = new System.Drawing.Size(291, 132);
@@ -311,9 +313,9 @@
             this.groupBox3.Controls.Add(this.button1);
             this.groupBox3.Controls.Add(this.tbScript);
             this.groupBox3.Location = new System.Drawing.Point(16, 247);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox3.Size = new System.Drawing.Size(807, 405);
             this.groupBox3.TabIndex = 11;
             this.groupBox3.TabStop = false;
@@ -323,7 +325,7 @@
             // 
             this.btAutoresponder.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btAutoresponder.Location = new System.Drawing.Point(600, 369);
-            this.btAutoresponder.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btAutoresponder.Margin = new System.Windows.Forms.Padding(4);
             this.btAutoresponder.Name = "btAutoresponder";
             this.btAutoresponder.Size = new System.Drawing.Size(199, 28);
             this.btAutoresponder.TabIndex = 2;
@@ -335,7 +337,7 @@
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.button1.Location = new System.Drawing.Point(8, 369);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(199, 28);
             this.button1.TabIndex = 1;
@@ -346,7 +348,7 @@
             // tbScript
             // 
             this.tbScript.Location = new System.Drawing.Point(8, 23);
-            this.tbScript.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbScript.Margin = new System.Windows.Forms.Padding(4);
             this.tbScript.Multiline = true;
             this.tbScript.Name = "tbScript";
             this.tbScript.ScrollBars = System.Windows.Forms.ScrollBars.Both;
@@ -363,7 +365,7 @@
             this.Controls.Add(this.groupBox1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.Margin = new System.Windows.Forms.Padding(5);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Form1";

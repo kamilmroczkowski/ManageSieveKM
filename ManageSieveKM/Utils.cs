@@ -107,7 +107,7 @@ namespace ManageSieveKM
 
         public static void LogToFile(string msg)
         {
-            File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "debug.txt", Utils.DateTime2ISO(DateTime.Now) + " " + msg);
+            File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "debug.txt", Utils.DateTime2ISO(DateTime.Now) + " " + msg + Environment.NewLine);
         }
     }
 }
