@@ -215,6 +215,8 @@
             // chbUpdate
             // 
             this.chbUpdate.AutoSize = true;
+            this.chbUpdate.Checked = true;
+            this.chbUpdate.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chbUpdate.Location = new System.Drawing.Point(8, 187);
             this.chbUpdate.Margin = new System.Windows.Forms.Padding(4);
             this.chbUpdate.Name = "chbUpdate";
