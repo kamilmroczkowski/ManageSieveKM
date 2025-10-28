@@ -38,6 +38,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.numericFixBuffer = new System.Windows.Forms.NumericUpDown();
+            this.label6 = new System.Windows.Forms.Label();
             this.numericFontSize = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
             this.chbUpdate = new System.Windows.Forms.CheckBox();
@@ -52,8 +54,8 @@
             this.btAutoresponder = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.tbScript = new System.Windows.Forms.TextBox();
-            this.chbFixBuffor = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericFixBuffer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericFontSize)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -153,7 +155,8 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.chbFixBuffor);
+            this.groupBox1.Controls.Add(this.numericFixBuffer);
+            this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.numericFontSize);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.chbUpdate);
@@ -179,6 +182,29 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Sieve server";
             // 
+            // numericFixBuffer
+            // 
+            this.numericFixBuffer.Location = new System.Drawing.Point(205, 185);
+            this.numericFixBuffer.Maximum = new decimal(new int[] {
+            200,
+            0,
+            0,
+            0});
+            this.numericFixBuffer.Name = "numericFixBuffer";
+            this.numericFixBuffer.Size = new System.Drawing.Size(74, 23);
+            this.numericFixBuffer.TabIndex = 17;
+            this.numericFixBuffer.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numericFixBuffer.ValueChanged += new System.EventHandler(this.numericFixBuffer_ValueChanged);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(129, 187);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(70, 17);
+            this.label6.TabIndex = 16;
+            this.label6.Text = "Fix buffer:";
+            // 
             // numericFontSize
             // 
             this.numericFontSize.Location = new System.Drawing.Point(411, 155);
@@ -202,7 +228,7 @@
             0,
             0,
             0});
-            this.numericFontSize.Leave += new System.EventHandler(this.numericFontSize_Leave);
+            this.numericFontSize.ValueChanged += new System.EventHandler(this.numericFontSize_ValueChanged);
             // 
             // label5
             // 
@@ -359,19 +385,6 @@
             this.tbScript.Size = new System.Drawing.Size(789, 338);
             this.tbScript.TabIndex = 0;
             // 
-            // chbFixBuffor
-            // 
-            this.chbFixBuffor.AutoSize = true;
-            this.chbFixBuffor.Checked = true;
-            this.chbFixBuffor.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chbFixBuffor.Location = new System.Drawing.Point(131, 187);
-            this.chbFixBuffor.Name = "chbFixBuffor";
-            this.chbFixBuffor.Size = new System.Drawing.Size(85, 21);
-            this.chbFixBuffor.TabIndex = 16;
-            this.chbFixBuffor.Text = "Fix buffor";
-            this.chbFixBuffor.UseVisualStyleBackColor = true;
-            this.chbFixBuffor.CheckedChanged += new System.EventHandler(this.chbFixBuffor_CheckedChanged);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -390,6 +403,7 @@
             this.Shown += new System.EventHandler(this.Form1_Shown);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericFixBuffer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericFontSize)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
@@ -424,7 +438,8 @@
         private System.Windows.Forms.CheckBox chbUpdate;
         private System.Windows.Forms.NumericUpDown numericFontSize;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.CheckBox chbFixBuffor;
+        private System.Windows.Forms.NumericUpDown numericFixBuffer;
+        private System.Windows.Forms.Label label6;
     }
 }
 

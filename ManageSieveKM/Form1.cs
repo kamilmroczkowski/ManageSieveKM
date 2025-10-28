@@ -103,6 +103,7 @@ namespace ManageSieveKM
             {
                 chbAutoresponder.Checked = Convert.ToBoolean(reg.GetValue("showOnlyAutoresponder"));
             }
+            decimal fs;
             //fontSize
             if (reg.GetValue("fontSize") == null)
             {
@@ -110,7 +111,7 @@ namespace ManageSieveKM
             }
             else
             {
-                decimal fs = 12;
+                fs = 12;
                 if (decimal.TryParse(reg.GetValue("fontSize").ToString(), out fs))
                 {
 
@@ -126,14 +127,19 @@ namespace ManageSieveKM
             {
                 chbDebug.Checked = Convert.ToBoolean(reg.GetValue("debug"));
             }
-            //fixBuffor
-            if (reg.GetValue("fixBuffor") == null)
+            //fixBuffer
+            if (reg.GetValue("fixBuffer") == null)
             {
-                reg.SetValue("fixBuffor", false.ToString());
+                reg.SetValue("fixBuffer", "0");
             }
             else
             {
-                chbFixBuffor.Checked = Convert.ToBoolean(reg.GetValue("fixBuffor"));
+                fs = 0;
+                if (decimal.TryParse(reg.GetValue("fixBuffer").ToString(), out fs))
+                {
+
+                }
+                numericFixBuffer.Value = fs;
             }
             //checkUpdate
             if (reg.GetValue("checkUpdate") == null)
@@ -338,7 +344,7 @@ namespace ManageSieveKM
         {
             if (this.Connect())
             {
-                if (sieve.SendScript(this.listS[lbScripts.SelectedIndex].Name, tbScript.Text, chbFixBuffor.Checked) == false)
+                if (sieve.SendScript(this.listS[lbScripts.SelectedIndex].Name, tbScript.Text, numericFixBuffer.Value) == false)
                 {
                     MessageBox.Show("Can't send script! Error: " + this.sieve.Errors, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
@@ -381,11 +387,6 @@ namespace ManageSieveKM
             }
         }
 
-        private void numericFontSize_Leave(object sender, EventArgs e)
-        {
-            reg.SetValue("fontSize", numericFontSize.Value.ToString());
-        }
-
         private void lbScripts_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (lbScripts.SelectedIndex > -1)
@@ -404,9 +405,14 @@ namespace ManageSieveKM
             reg.SetValue("checkUpdate", chbUpdate.Checked.ToString());
         }
 
-        private void chbFixBuffor_CheckedChanged(object sender, EventArgs e)
+        private void numericFixBuffer_ValueChanged(object sender, EventArgs e)
         {
-            reg.SetValue("fixBuffor", chbFixBuffor.Checked.ToString());
+            reg.SetValue("fixBuffer", numericFixBuffer.Value.ToString());
+        }
+
+        private void numericFontSize_ValueChanged(object sender, EventArgs e)
+        {
+            reg.SetValue("fontSize", numericFontSize.Value.ToString());
         }
     }
 }

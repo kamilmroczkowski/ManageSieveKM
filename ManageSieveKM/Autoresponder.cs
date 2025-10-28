@@ -97,7 +97,10 @@ namespace ManageSieveKM
             this.newScript = "";
             if (ifAutoresponder == false)
             {
-                this.newScript = "require [\"date\",\"fileinto\",\"relational\",\"vacation\"];" + Environment.NewLine;
+                if (this.oldScript.IndexOf("require [") == -1)
+                {
+                    this.newScript = "require [\"date\",\"fileinto\",\"imap4flags\",\"relational\",\"vacation\"];" + Environment.NewLine;
+                }
                 this.newScript += this.oldScript;
                 this.newScript += autoresponder;
             }
@@ -118,7 +121,6 @@ namespace ManageSieveKM
                 string[] scripts = oldScript.Split(new string[] { "# rule:[" }, StringSplitOptions.None);
                 foreach (string s in scripts)
                 {
-                    //if (s.Length > 9 && s.Substring(0, 9) == "require [")
                     if (s.IndexOf("require [") != -1)
                     {
                         continue;

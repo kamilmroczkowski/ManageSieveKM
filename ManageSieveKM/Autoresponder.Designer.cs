@@ -50,7 +50,7 @@
             this.cbRules.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbRules.FormattingEnabled = true;
             this.cbRules.Location = new System.Drawing.Point(67, 15);
-            this.cbRules.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbRules.Margin = new System.Windows.Forms.Padding(4);
             this.cbRules.Name = "cbRules";
             this.cbRules.Size = new System.Drawing.Size(732, 24);
             this.cbRules.TabIndex = 0;
@@ -79,9 +79,9 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.tbSubject);
             this.groupBox1.Location = new System.Drawing.Point(16, 48);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox1.Size = new System.Drawing.Size(784, 423);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
@@ -100,7 +100,7 @@
             // tbCopy
             // 
             this.tbCopy.Location = new System.Drawing.Point(91, 347);
-            this.tbCopy.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbCopy.Margin = new System.Windows.Forms.Padding(4);
             this.tbCopy.Name = "tbCopy";
             this.tbCopy.Size = new System.Drawing.Size(684, 23);
             this.tbCopy.TabIndex = 2;
@@ -130,7 +130,7 @@
             this.dtpTo.CustomFormat = "yyyy-MM-dd HH:mm";
             this.dtpTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpTo.Location = new System.Drawing.Point(335, 379);
-            this.dtpTo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dtpTo.Margin = new System.Windows.Forms.Padding(4);
             this.dtpTo.Name = "dtpTo";
             this.dtpTo.Size = new System.Drawing.Size(167, 23);
             this.dtpTo.TabIndex = 4;
@@ -140,7 +140,7 @@
             this.dtpFrom.CustomFormat = "yyyy-MM-dd HH:mm";
             this.dtpFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpFrom.Location = new System.Drawing.Point(91, 379);
-            this.dtpFrom.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dtpFrom.Margin = new System.Windows.Forms.Padding(4);
             this.dtpFrom.Name = "dtpFrom";
             this.dtpFrom.Size = new System.Drawing.Size(167, 23);
             this.dtpFrom.TabIndex = 3;
@@ -158,9 +158,10 @@
             // tbBody
             // 
             this.tbBody.Location = new System.Drawing.Point(91, 55);
-            this.tbBody.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbBody.Margin = new System.Windows.Forms.Padding(4);
             this.tbBody.Multiline = true;
             this.tbBody.Name = "tbBody";
+            this.tbBody.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.tbBody.Size = new System.Drawing.Size(684, 283);
             this.tbBody.TabIndex = 1;
             // 
@@ -177,7 +178,7 @@
             // tbSubject
             // 
             this.tbSubject.Location = new System.Drawing.Point(91, 23);
-            this.tbSubject.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbSubject.Margin = new System.Windows.Forms.Padding(4);
             this.tbSubject.Name = "tbSubject";
             this.tbSubject.Size = new System.Drawing.Size(684, 23);
             this.tbSubject.TabIndex = 0;
@@ -186,7 +187,7 @@
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(359, 479);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(100, 28);
             this.button1.TabIndex = 2;
@@ -205,7 +206,7 @@
             this.Controls.Add(this.cbRules);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.Margin = new System.Windows.Forms.Padding(5);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Autoresponder";
