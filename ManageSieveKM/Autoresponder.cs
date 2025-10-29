@@ -17,25 +17,48 @@ namespace ManageSieveKM
     {
         private string newScript, oldScript;
         private bool ifAutoresponder = false;
+        private DataTable dtRules = new DataTable();
+        List<string> modules = new List<string>() { "copy", "date", "fileinto", "imap4flags", "relational", "vacation" };
+
         public Autoresponder(string script)
         {
             InitializeComponent();
             this.oldScript = script;
+            int i, i2;
+            dtRules.Columns.Add("name");
+            dtRules.Columns.Add("body");
+            dtRules.Columns.Add("vacation");
+            string name, body, vacation;
             string[] scripts = script.Split(new string[] { "# rule:[" }, StringSplitOptions.None);
             foreach (string s in scripts)
             {
-                if (s.IndexOf("require [") != -1)
+                i2 = s.IndexOf("require [");
+                if (i2 != -1)
                 {
-                    continue;
+                    i = s.IndexOf("\"];", i2);
+                    foreach(string s2 in s.Substring(i2 + 9, i - i2 - 8).Split(','))
+                    {
+                        if (modules.Contains(s2) == false)
+                        {
+                            modules.Add(s2.Trim('"'));
+                        }
+                    }
                 }
                 else
                 {
-                    if (s.IndexOf("vacation :subject") != -1)
+                    i = s.IndexOf("]\r\n");
+                    if (i != -1)
                     {
-                        int i = s.IndexOf("]\r\n");
-                        string nameRule = s.Substring(0, i);
-                        cbRules.Items.Add(nameRule);
-                        ifAutoresponder = true;
+                        name = s.Substring(0, i);
+                        body = s.Substring(i + 3, s.Length - i - 5);
+                        vacation = "0";
+                        if (s.IndexOf("vacation :subject") != -1)
+                        {
+                            cbRules.Items.Add(name);
+                            ifAutoresponder = true;
+                            vacation = "1";
+                        }
+                        dtRules.Rows.Add(name, vacation, body);
                     }
                 }
             }
@@ -79,7 +102,7 @@ namespace ManageSieveKM
                 }
             }
             string autoresponder = "";
-            autoresponder += "# rule:[" + ((cbRules.Text.Trim() == "") ? "Autoresponder" : cbRules.Text) + "]" + Environment.NewLine;
+            autoresponder += "# rule:[" + cbRules.Text + "]" + Environment.NewLine;
             autoresponder += "if allof(currentdate :value \"ge\" \"iso8601\" \"" +
                 Utils.DateTime2ISO(dtpFrom.Value).Replace(" ", "T") +
                 "\", currentdate :value \"le\" \"iso8601\" \"" +
@@ -94,22 +117,31 @@ namespace ManageSieveKM
                 autoresponder += "\tredirect :copy \"" + tbCopy.Text + "\";" + Environment.NewLine;
             }
             autoresponder += "}" + Environment.NewLine;
-            this.newScript = "";
-            if (ifAutoresponder == false)
+
+            this.newScript = "require [";
+            foreach(string s in modules)
             {
-                if (this.oldScript.IndexOf("require [") == -1)
-                {
-                    this.newScript = "require [\"date\",\"fileinto\",\"imap4flags\",\"relational\",\"vacation\"];" + Environment.NewLine;
-                }
-                this.newScript += this.oldScript;
-                this.newScript += autoresponder;
+                this.newScript += "\"" + s + "\",";
             }
-            else
+            this.newScript = this.newScript.Trim(',');
+            this.newScript += "];" + Environment.NewLine;
+            bool existsR = false;
+            foreach(DataRow dr in dtRules.Rows)
             {
-                int i = this.oldScript.IndexOf("# rule:[" + cbRules.Text + "]\r\n");
-                int i2 = this.oldScript.IndexOf("}\r\n", i);
-                this.newScript = this.oldScript.Substring(0, i) + autoresponder +
-                    this.oldScript.Substring(i2 + 2, this.oldScript.Length - i2 - 2);
+                if (dr[0].ToString() == cbRules.Text)
+                {
+                    this.newScript += autoresponder;
+                    existsR = true;
+                }
+                else
+                {
+                    this.newScript += "# rule:[" + dr[0].ToString() + "]" + Environment.NewLine;
+                    this.newScript += dr[2].ToString() + Environment.NewLine;
+                }
+            }
+            if (existsR == false)
+            {
+                this.newScript += autoresponder;
             }
             this.DialogResult = DialogResult.OK;
         }
@@ -118,53 +150,40 @@ namespace ManageSieveKM
         {
             if (cbRules.Text != "")
             {
-                string[] scripts = oldScript.Split(new string[] { "# rule:[" }, StringSplitOptions.None);
-                foreach (string s in scripts)
+                foreach(DataRow dr in dtRules.Rows)
                 {
-                    if (s.IndexOf("require [") != -1)
+                    if (dr[0].ToString() == cbRules.Text && dr[1].ToString() == "1")
                     {
-                        continue;
-                    }
-                    else
-                    {
-                        int i = s.IndexOf("]" + Environment.NewLine);
-                        string nameRule = s.Substring(0, i);
-                        if (nameRule == cbRules.Text)
+                        string[] subjectBody;
+                        string body0 = dr[2].ToString();
+                        string[] rule = body0.Split(new string[] { "vacation :subject" }, StringSplitOptions.None);
+                        if (body0.IndexOf("\" text:") == -1)
                         {
-                            string[] rule = s.Split(new string[] { "vacation :subject" }, StringSplitOptions.None);
-                            if (rule.Length > 1)
-                            {
-                                string[] subjectBody;
-                                if (rule[1].IndexOf("\" text:") == -1)
-                                {
-                                    subjectBody = rule[1].Split(new string[] { "\" \"" }, StringSplitOptions.None);
-                                    tbSubject.Text = subjectBody[0].Substring(2, subjectBody[0].Length - 2);
-                                }
-                                else
-                                {
-                                    subjectBody = rule[1].Split(new string[] { "\" text:" }, StringSplitOptions.None);
-                                    tbSubject.Text = subjectBody[0].Substring(2, subjectBody[0].Length - 2);
-                                }
-                                int ir = subjectBody[1].IndexOf("redirect");
-                                if (ir == -1)
-                                {
-                                    tbBody.Text = subjectBody[1].Substring(2, subjectBody[1].Length - 13).Trim();
-                                }
-                                else
-                                {
-                                    string[] body = subjectBody[1].Split(new string[] { "redirect :copy" }, StringSplitOptions.None);
-                                    tbBody.Text = body[0].Substring(2, ir - 11);
-                                    tbCopy.Text = body[1].Substring(2, body[1].Length - 9);
-                                }
-                                string[] dateTime = rule[0].Split(new string[] { "\"iso8601\"" }, StringSplitOptions.None);
-                                if (dateTime.Length > 1)
-                                {
-                                    dtpFrom.Value = DateTime.ParseExact(dateTime[1].Substring(2, 16).Replace("T", " "), "yyyy-MM-dd HH:mm", System.Globalization.CultureInfo.InvariantCulture);
-                                    dtpTo.Value = DateTime.ParseExact(dateTime[2].Substring(2, 16).Replace("T", " "), "yyyy-MM-dd HH:mm", System.Globalization.CultureInfo.InvariantCulture);
-                                }
-                            }
-                            break;
+                            subjectBody = rule[1].Split(new string[] { "\" \"" }, StringSplitOptions.None);
                         }
+                        else
+                        {
+                            subjectBody = rule[1].Split(new string[] { "\" text:" }, StringSplitOptions.None);
+                        }
+                        tbSubject.Text = subjectBody[0].Substring(2, subjectBody[0].Length - 2);
+                        int ir = subjectBody[1].IndexOf("redirect");
+                        if (ir == -1)
+                        {
+                            tbBody.Text = subjectBody[1].Substring(2, subjectBody[1].Length - 13).Trim();
+                        }
+                        else
+                        {
+                            string[] body = subjectBody[1].Split(new string[] { "redirect :copy" }, StringSplitOptions.None);
+                            tbBody.Text = body[0].Substring(2, ir - 11);
+                            tbCopy.Text = body[1].Trim().Substring(1, body[1].Length - 9);
+                        }
+                        string[] dateTime = body0.Split(new string[] { "\"iso8601\"" }, StringSplitOptions.None);
+                        if (dateTime.Length > 1)
+                        {
+                            dtpFrom.Value = DateTime.ParseExact(dateTime[1].Substring(2, 16).Replace("T", " "), "yyyy-MM-dd HH:mm", System.Globalization.CultureInfo.InvariantCulture);
+                            dtpTo.Value = DateTime.ParseExact(dateTime[2].Substring(2, 16).Replace("T", " "), "yyyy-MM-dd HH:mm", System.Globalization.CultureInfo.InvariantCulture);
+                        }
+                        break;
                     }
                 }
             }

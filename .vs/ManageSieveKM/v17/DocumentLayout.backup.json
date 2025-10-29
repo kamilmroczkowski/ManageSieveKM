@@ -3,21 +3,6 @@
   "WorkspaceRootPath": "C:\\Users\\kmroczkowski\\source\\repos\\ManageSieveKM\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|ManageSieveKM||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8AC9990E-9DC7-42EA-B057-907DAB17535E}|ManageSieveKM\\ManageSieveKM.csproj|C:\\Users\\kmroczkowski\\source\\repos\\ManageSieveKM\\managesievekm\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8AC9990E-9DC7-42EA-B057-907DAB17535E}|ManageSieveKM\\ManageSieveKM.csproj|solutionrelative:managesievekm\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8AC9990E-9DC7-42EA-B057-907DAB17535E}|ManageSieveKM\\ManageSieveKM.csproj|C:\\Users\\kmroczkowski\\source\\repos\\ManageSieveKM\\managesievekm\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{8AC9990E-9DC7-42EA-B057-907DAB17535E}|ManageSieveKM\\ManageSieveKM.csproj|solutionrelative:managesievekm\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8AC9990E-9DC7-42EA-B057-907DAB17535E}|ManageSieveKM\\ManageSieveKM.csproj|c:\\users\\kmroczkowski\\source\\repos\\managesievekm\\managesievekm\\sieveconnect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8AC9990E-9DC7-42EA-B057-907DAB17535E}|ManageSieveKM\\ManageSieveKM.csproj|solutionrelative:managesievekm\\sieveconnect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{8AC9990E-9DC7-42EA-B057-907DAB17535E}|ManageSieveKM\\ManageSieveKM.csproj|C:\\Users\\kmroczkowski\\source\\repos\\ManageSieveKM\\managesievekm\\autoresponder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8AC9990E-9DC7-42EA-B057-907DAB17535E}|ManageSieveKM\\ManageSieveKM.csproj|solutionrelative:managesievekm\\autoresponder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -26,7 +11,16 @@
       "RelativeMoniker": "D:0:0:{8AC9990E-9DC7-42EA-B057-907DAB17535E}|ManageSieveKM\\ManageSieveKM.csproj|solutionrelative:managesievekm\\autoresponder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8AC9990E-9DC7-42EA-B057-907DAB17535E}|ManageSieveKM\\ManageSieveKM.csproj|c:\\users\\kmroczkowski\\source\\repos\\managesievekm\\managesievekm\\||{B270807C-D8C6-49EB-8EBE-8E8D566637A1}|5e9a8ac2-4f34-4521-858f-4c248ba31532"
+      "AbsoluteMoniker": "D:0:0:{8AC9990E-9DC7-42EA-B057-907DAB17535E}|ManageSieveKM\\ManageSieveKM.csproj|c:\\users\\kmroczkowski\\source\\repos\\managesievekm\\managesievekm\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8AC9990E-9DC7-42EA-B057-907DAB17535E}|ManageSieveKM\\ManageSieveKM.csproj|solutionrelative:managesievekm\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8AC9990E-9DC7-42EA-B057-907DAB17535E}|ManageSieveKM\\ManageSieveKM.csproj|C:\\Users\\kmroczkowski\\source\\repos\\ManageSieveKM\\managesievekm\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{8AC9990E-9DC7-42EA-B057-907DAB17535E}|ManageSieveKM\\ManageSieveKM.csproj|solutionrelative:managesievekm\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8AC9990E-9DC7-42EA-B057-907DAB17535E}|ManageSieveKM\\ManageSieveKM.csproj|C:\\Users\\kmroczkowski\\source\\repos\\ManageSieveKM\\managesievekm\\sieveconnect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8AC9990E-9DC7-42EA-B057-907DAB17535E}|ManageSieveKM\\ManageSieveKM.csproj|solutionrelative:managesievekm\\sieveconnect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -41,41 +35,31 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "ManageSieveKM",
-              "DocumentMoniker": "C:\\Users\\kmroczkowski\\source\\repos\\ManageSieveKM\\ManageSieveKM\\ManageSieveKM.csproj",
-              "RelativeDocumentMoniker": "ManageSieveKM\\ManageSieveKM.csproj",
-              "ToolTip": "C:\\Users\\kmroczkowski\\source\\repos\\ManageSieveKM\\ManageSieveKM\\ManageSieveKM.csproj",
-              "RelativeToolTip": "ManageSieveKM\\ManageSieveKM.csproj",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-10-29T08:48:30.846Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
               "Title": "Autoresponder.cs",
               "DocumentMoniker": "C:\\Users\\kmroczkowski\\source\\repos\\ManageSieveKM\\ManageSieveKM\\Autoresponder.cs",
               "RelativeDocumentMoniker": "ManageSieveKM\\Autoresponder.cs",
               "ToolTip": "C:\\Users\\kmroczkowski\\source\\repos\\ManageSieveKM\\ManageSieveKM\\Autoresponder.cs",
               "RelativeToolTip": "ManageSieveKM\\Autoresponder.cs",
-              "ViewState": "AgIAAFIAAAAAAAAAAAAewHsAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABgAAAAAAAAAAAAhwCsAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-28T13:53:35.786Z"
+              "WhenOpened": "2025-10-28T13:53:35.786Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 1,
               "Title": "Autoresponder.cs [Projekt]",
               "DocumentMoniker": "C:\\Users\\kmroczkowski\\source\\repos\\ManageSieveKM\\ManageSieveKM\\Autoresponder.cs",
               "RelativeDocumentMoniker": "ManageSieveKM\\Autoresponder.cs",
               "ToolTip": "C:\\Users\\kmroczkowski\\source\\repos\\ManageSieveKM\\ManageSieveKM\\Autoresponder.cs [Projekt]",
               "RelativeToolTip": "ManageSieveKM\\Autoresponder.cs [Projekt]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-28T13:29:13.873Z"
+              "WhenOpened": "2025-10-28T13:29:13.873Z",
+              "EditorCaption": " [Projekt]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "SieveConnect.cs",
               "DocumentMoniker": "C:\\Users\\kmroczkowski\\source\\repos\\ManageSieveKM\\ManageSieveKM\\SieveConnect.cs",
               "RelativeDocumentMoniker": "ManageSieveKM\\SieveConnect.cs",
@@ -83,33 +67,31 @@
               "RelativeToolTip": "ManageSieveKM\\SieveConnect.cs",
               "ViewState": "AgIAAAQBAAAAAAAAAAApwBoBAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-28T12:53:53.572Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-28T12:53:53.572Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Form1.cs",
               "DocumentMoniker": "C:\\Users\\kmroczkowski\\source\\repos\\ManageSieveKM\\ManageSieveKM\\Form1.cs",
               "RelativeDocumentMoniker": "ManageSieveKM\\Form1.cs",
               "ToolTip": "C:\\Users\\kmroczkowski\\source\\repos\\ManageSieveKM\\ManageSieveKM\\Form1.cs",
               "RelativeToolTip": "ManageSieveKM\\Form1.cs",
-              "ViewState": "AgIAAEwBAAAAAAAAAAApwGEBAACFAAAAAAAAAA==",
+              "ViewState": "AgIAAE8BAAAAAAAAAAApwGYBAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-28T10:46:00.113Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Form1.cs [Projekt]",
               "DocumentMoniker": "C:\\Users\\kmroczkowski\\source\\repos\\ManageSieveKM\\ManageSieveKM\\Form1.cs",
               "RelativeDocumentMoniker": "ManageSieveKM\\Form1.cs",
               "ToolTip": "C:\\Users\\kmroczkowski\\source\\repos\\ManageSieveKM\\ManageSieveKM\\Form1.cs [Projekt]",
               "RelativeToolTip": "ManageSieveKM\\Form1.cs [Projekt]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-28T10:45:57.789Z",
-              "EditorCaption": " [Projekt]"
+              "WhenOpened": "2025-10-28T10:45:57.789Z"
             }
           ]
         }
