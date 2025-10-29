@@ -169,13 +169,13 @@ namespace ManageSieveKM
                         int ir = subjectBody[1].IndexOf("redirect");
                         if (ir == -1)
                         {
-                            tbBody.Text = subjectBody[1].Substring(2, subjectBody[1].Length - 13).Trim();
+                            tbBody.Text = subjectBody[1].Substring(2, subjectBody[1].Length - 11).Trim();
                         }
                         else
                         {
                             string[] body = subjectBody[1].Split(new string[] { "redirect :copy" }, StringSplitOptions.None);
                             tbBody.Text = body[0].Substring(2, ir - 11);
-                            tbCopy.Text = body[1].Trim().Substring(1, body[1].Length - 9);
+                            tbCopy.Text = body[1].Trim().Substring(1, body[1].Length - 7);
                         }
                         string[] dateTime = body0.Split(new string[] { "\"iso8601\"" }, StringSplitOptions.None);
                         if (dateTime.Length > 1)
