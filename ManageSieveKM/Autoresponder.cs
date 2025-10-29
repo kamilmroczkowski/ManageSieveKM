@@ -38,7 +38,7 @@ namespace ManageSieveKM
                     i = s.IndexOf("\"];", i2);
                     foreach(string s2 in s.Substring(i2 + 9, i - i2 - 8).Split(','))
                     {
-                        if (modules.Contains(s2) == false)
+                        if (modules.Contains(s2.Trim('"')) == false)
                         {
                             modules.Add(s2.Trim('"'));
                         }
