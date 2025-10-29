@@ -346,7 +346,12 @@ namespace ManageSieveKM
             {
                 if (sieve.SendScript(this.listS[lbScripts.SelectedIndex].Name, tbScript.Text, numericFixBuffer.Value) == false)
                 {
-                    MessageBox.Show("Can't send script! Error: " + this.sieve.Errors, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    string helper0 = "Try increasing the buffer by 2 and resend. Keep trying increase buffer until it works.";
+                    if (this.sieve.Errors.IndexOf("Too many command arguments") == -1)
+                    {
+                        helper0 = "Try reducing the buffer by 2 and resend. Keep trying reducing until it works.";
+                    }
+                    MessageBox.Show("Can't send script! " + Environment.NewLine + Environment.NewLine + helper0 + Environment.NewLine + Environment.NewLine + "Error: " + this.sieve.Errors, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
