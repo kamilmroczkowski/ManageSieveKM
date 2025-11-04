@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\kmroczkowski\\source\\repos\\ManageSieveKM\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{8AC9990E-9DC7-42EA-B057-907DAB17535E}|ManageSieveKM\\ManageSieveKM.csproj|c:\\users\\kmroczkowski\\source\\repos\\managesievekm\\managesievekm\\autoresponder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8AC9990E-9DC7-42EA-B057-907DAB17535E}|ManageSieveKM\\ManageSieveKM.csproj|solutionrelative:managesievekm\\autoresponder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8AC9990E-9DC7-42EA-B057-907DAB17535E}|ManageSieveKM\\ManageSieveKM.csproj|c:\\users\\kmroczkowski\\source\\repos\\managesievekm\\managesievekm\\config.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8AC9990E-9DC7-42EA-B057-907DAB17535E}|ManageSieveKM\\ManageSieveKM.csproj|solutionrelative:managesievekm\\config.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8AC9990E-9DC7-42EA-B057-907DAB17535E}|ManageSieveKM\\ManageSieveKM.csproj|C:\\Users\\kmroczkowski\\source\\repos\\ManageSieveKM\\managesievekm\\autoresponder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{8AC9990E-9DC7-42EA-B057-907DAB17535E}|ManageSieveKM\\ManageSieveKM.csproj|solutionrelative:managesievekm\\autoresponder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{8AC9990E-9DC7-42EA-B057-907DAB17535E}|ManageSieveKM\\ManageSieveKM.csproj|c:\\users\\kmroczkowski\\source\\repos\\managesievekm\\managesievekm\\config.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{8AC9990E-9DC7-42EA-B057-907DAB17535E}|ManageSieveKM\\ManageSieveKM.csproj|solutionrelative:managesievekm\\config.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -23,26 +23,27 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Autoresponder.cs",
-              "DocumentMoniker": "C:\\Users\\kmroczkowski\\source\\repos\\ManageSieveKM\\ManageSieveKM\\Autoresponder.cs",
-              "RelativeDocumentMoniker": "ManageSieveKM\\Autoresponder.cs",
-              "ToolTip": "C:\\Users\\kmroczkowski\\source\\repos\\ManageSieveKM\\ManageSieveKM\\Autoresponder.cs",
-              "RelativeToolTip": "ManageSieveKM\\Autoresponder.cs",
-              "ViewState": "AgIAAJ0AAAAAAAAAAAAIwLAAAABYAAAAAAAAAA==",
+              "Title": "Config.cs",
+              "DocumentMoniker": "C:\\Users\\kmroczkowski\\source\\repos\\ManageSieveKM\\ManageSieveKM\\Config.cs",
+              "RelativeDocumentMoniker": "ManageSieveKM\\Config.cs",
+              "ToolTip": "C:\\Users\\kmroczkowski\\source\\repos\\ManageSieveKM\\ManageSieveKM\\Config.cs",
+              "RelativeToolTip": "ManageSieveKM\\Config.cs",
+              "ViewState": "AgIAAD8AAAAAAAAAAAAMwEoAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T13:48:20.323Z",
+              "WhenOpened": "2025-11-04T13:02:42.803Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Autoresponder.cs [Projekt]",
-              "DocumentMoniker": "C:\\Users\\kmroczkowski\\source\\repos\\ManageSieveKM\\ManageSieveKM\\Autoresponder.cs",
-              "RelativeDocumentMoniker": "ManageSieveKM\\Autoresponder.cs",
-              "ToolTip": "C:\\Users\\kmroczkowski\\source\\repos\\ManageSieveKM\\ManageSieveKM\\Autoresponder.cs [Projekt]",
-              "RelativeToolTip": "ManageSieveKM\\Autoresponder.cs [Projekt]",
+              "Title": "Config.cs [Projekt]",
+              "DocumentMoniker": "C:\\Users\\kmroczkowski\\source\\repos\\ManageSieveKM\\ManageSieveKM\\Config.cs",
+              "RelativeDocumentMoniker": "ManageSieveKM\\Config.cs",
+              "ToolTip": "C:\\Users\\kmroczkowski\\source\\repos\\ManageSieveKM\\ManageSieveKM\\Config.cs [Projekt]",
+              "RelativeToolTip": "ManageSieveKM\\Config.cs [Projekt]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-30T13:48:18.307Z"
+              "WhenOpened": "2025-11-04T13:02:41.556Z",
+              "EditorCaption": " [Projekt]"
             }
           ]
         }

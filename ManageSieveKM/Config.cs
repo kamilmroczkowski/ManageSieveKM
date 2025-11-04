@@ -69,6 +69,24 @@ namespace ManageSieveKM
             }
             reg.SetValue("checkUpdate", chbUpdate.Checked.ToString());
             reg.SetValue("silentUpdate", chbSilentUpdate.Checked.ToString());
+            if (tbUpdateServer.Text.Length > 0)
+            {
+                string aaa = tbUpdateServer.Text.Substring(tbUpdateServer.Text.Length - 1, 1);
+                if (tbUpdateServer.Text.Substring(0, 4) == "http")
+                {
+                    if (tbUpdateServer.Text.Substring(tbUpdateServer.Text.Length - 1, 1) != "/")
+                    {
+                        tbUpdateServer.Text += "/";
+                    }
+                }
+                else
+                {
+                    if (tbUpdateServer.Text.Substring(tbUpdateServer.Text.Length - 1, 1) != "\\")
+                    {
+                        tbUpdateServer.Text += "\\";
+                    }
+                }
+            }
             reg.SetValue("updateServer", tbUpdateServer.Text.Trim());
             reg.SetValue("debug", chbDebug.Checked.ToString());
             reg.SetValue("showOnlyAutoresponder", chbAutoresponder.Checked.ToString());

@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,6 +20,7 @@ namespace ManageSieveKM
     {
         private WebClient webclient = new WebClient();
         private bool flushConfig;
+        private bool stopClose = false;
 
         public Loading(bool flushConfig)
         {
@@ -28,7 +30,17 @@ namespace ManageSieveKM
 
         private void debugLog(string msg)
         {
-            textBox1.AppendText(msg + Environment.NewLine);
+            if (backgroundWorker1.IsBusy)
+            {
+                textBox1.Invoke((MethodInvoker)delegate
+                {
+                    textBox1.AppendText(msg + Environment.NewLine);
+                });
+            }
+            else
+            {
+                textBox1.AppendText(msg + Environment.NewLine);
+            }
             if (Configuration.Debug)
             {
                 Utils.LogToFile(msg);
@@ -36,6 +48,22 @@ namespace ManageSieveKM
         }
 
         private void Loading_Shown(object sender, EventArgs e)
+        {
+            backgroundWorker1.RunWorkerAsync();
+        }
+
+        private void textBox1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            this.stopClose = true;
+            button1.Visible = true;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             this.debugLog("Read encryption key...");
             Configuration.EncryptionKey = Utils.GetEncryptionKey();
@@ -212,36 +240,63 @@ namespace ManageSieveKM
                 string file0;
                 try
                 {
-                    string version = this.webclient.DownloadString(Configuration.ServerUpdate + "version.txt").Trim();
-                    this.debugLog("Check version in server: " + version);
-                    if (System.Reflection.Assembly.GetEntryAssembly().GetName().Version.ToString() != version.Trim())
+                    string version;
+                    if (Configuration.ServerUpdate.Length > 5)
                     {
-                        DialogResult dl = DialogResult.OK;
-                        if (Configuration.SilentUpdate == false)
+                        bool http = false;
+                        if (Configuration.ServerUpdate.Substring(0, 4) == "http")
                         {
-                            dl = MessageBox.Show("Release new version - apply update program?", "Update", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                            http = true;
                         }
-                        if (dl == DialogResult.OK)
+                        if (http)
                         {
-                            this.debugLog("My version (" + System.Reflection.Assembly.GetEntryAssembly().GetName().Version.ToString() + ") is diffrent... update.");
-                            file0 = "ManageSieveKM.exe";
-                            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + file0))
+                            version = this.webclient.DownloadString(Configuration.ServerUpdate + "version.txt").Trim();
+                        }
+                        else
+                        {
+                            version = File.ReadAllText(Configuration.ServerUpdate + "version.txt").Trim();
+                        }
+                        this.debugLog("Check version in server: " + version);
+                        if (System.Reflection.Assembly.GetEntryAssembly().GetName().Version.ToString() != version.Trim())
+                        {
+                            DialogResult dl = DialogResult.OK;
+                            if (Configuration.SilentUpdate == false)
                             {
-                                if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + file0 + ".bak"))
-                                {
-                                    this.debugLog("Delete old file: " + AppDomain.CurrentDomain.BaseDirectory + file0 + ".bak");
-                                    File.Delete(AppDomain.CurrentDomain.BaseDirectory + file0 + ".bak");
-                                }
-                                this.debugLog("Move file: " + AppDomain.CurrentDomain.BaseDirectory + file0 + " to: " + file0 + ".bak");
-                                File.Move(AppDomain.CurrentDomain.BaseDirectory + file0, AppDomain.CurrentDomain.BaseDirectory + file0 + ".bak");
+                                dl = MessageBox.Show("Release new version - apply update program?", "Update", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                             }
-                            this.debugLog("Download file from: " + Configuration.ServerUpdate + version + "/" + file0);
-                            this.webclient.DownloadFile(new Uri(Configuration.ServerUpdate + version + "/" + file0), AppDomain.CurrentDomain.BaseDirectory + file0);
-                            this.debugLog("Start new version file");
-                            Process.Start(Application.ExecutablePath);
-                            this.debugLog("Kill old version file");
-                            Process.GetCurrentProcess().Kill();
+                            if (dl == DialogResult.OK)
+                            {
+                                this.debugLog("My version (" + System.Reflection.Assembly.GetEntryAssembly().GetName().Version.ToString() + ") is diffrent... update.");
+                                file0 = "ManageSieveKM.exe";
+                                if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + file0))
+                                {
+                                    if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + file0 + ".bak"))
+                                    {
+                                        this.debugLog("Delete old file: " + AppDomain.CurrentDomain.BaseDirectory + file0 + ".bak");
+                                        File.Delete(AppDomain.CurrentDomain.BaseDirectory + file0 + ".bak");
+                                    }
+                                    this.debugLog("Move file: " + AppDomain.CurrentDomain.BaseDirectory + file0 + " to: " + file0 + ".bak");
+                                    File.Move(AppDomain.CurrentDomain.BaseDirectory + file0, AppDomain.CurrentDomain.BaseDirectory + file0 + ".bak");
+                                }
+                                this.debugLog("Download file from: " + Configuration.ServerUpdate + version + "/" + file0);
+                                if (http)
+                                {
+                                    this.webclient.DownloadFile(new Uri(Configuration.ServerUpdate + version + "/" + file0), AppDomain.CurrentDomain.BaseDirectory + file0);
+                                }
+                                else
+                                {
+                                    File.Copy(Configuration.ServerUpdate + version + "\\" + file0, AppDomain.CurrentDomain.BaseDirectory + file0);
+                                }
+                                this.debugLog("Start new version file");
+                                Process.Start(Application.ExecutablePath);
+                                this.debugLog("Kill old version file");
+                                Process.GetCurrentProcess().Kill();
+                            }
                         }
+                    }
+                    else
+                    {
+                        this.debugLog("Wrong server update: " + Configuration.ServerUpdate);
                     }
                 }
                 catch (Exception ex)
@@ -255,8 +310,15 @@ namespace ManageSieveKM
                     MessageBox.Show("Update error: " + error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
             Thread.Sleep(1000);
-            this.Close();
+            if (this.stopClose == false)
+            {
+                this.Close();
+            }
         }
     }
 }
