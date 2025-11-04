@@ -15,7 +15,7 @@ namespace ManageSieveKM
 {
     public partial class Autoresponder : FormT
     {
-        private string newScript, oldScript;
+        private string newScript;
         private bool ifAutoresponder = false;
         private DataTable dtRules = new DataTable();
         List<string> modules = new List<string>() { "copy", "date", "fileinto", "imap4flags", "relational", "vacation" };
@@ -23,7 +23,6 @@ namespace ManageSieveKM
         public Autoresponder(string script)
         {
             InitializeComponent();
-            this.oldScript = script;
             int i, i2;
             dtRules.Columns.Add("name");
             dtRules.Columns.Add("body");
@@ -175,7 +174,7 @@ namespace ManageSieveKM
                         {
                             string[] body = subjectBody[1].Split(new string[] { "redirect :copy" }, StringSplitOptions.None);
                             tbBody.Text = body[0].Substring(2, ir - 11);
-                            tbCopy.Text = body[1].Trim().Substring(1, body[1].Length - 7);
+                            tbCopy.Text = body[1].Trim().Substring(1, body[1].Length - 5);
                         }
                         string[] dateTime = body0.Split(new string[] { "\"iso8601\"" }, StringSplitOptions.None);
                         if (dateTime.Length > 1)

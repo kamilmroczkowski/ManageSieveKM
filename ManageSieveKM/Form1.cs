@@ -16,190 +16,15 @@ namespace ManageSieveKM
 {
     public partial class Form1 : FormT
     {
-        private RegistryKey currentUser = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64);
-        private RegistryKey reg;
         private SieveConnect sieve;
-        private string encryptionKey = Utils.GetEncryptionKey();
         private List<SieveScript> listS;
-        private WebClient webclient = new WebClient();
 
         public Form1(bool flushConfig = false)
         {
             InitializeComponent();
-            reg = currentUser.OpenSubKey("Software\\" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Name, true);
-            if (reg == null)
-            {
-                reg = currentUser.CreateSubKey("Software\\" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
-            }
-            else
-            {
-                if (flushConfig)
-                {
-                    reg.Close();
-                    currentUser.DeleteSubKey("Software\\" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
-                    reg = currentUser.CreateSubKey("Software\\" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
-                }
-            }
-            //host
-            if (reg.GetValue("host") == null)
-            {
-                reg.SetValue("host", "");
-            }
-            else
-            {
-                tbHost.Text = reg.GetValue("host").ToString();
-            }
-            //port
-            if (reg.GetValue("port") == null)
-            {
-                reg.SetValue("port", "4190");
-            }
-            else
-            {
-                tbPort.Text = reg.GetValue("port").ToString();
-            }
-            //TLS
-            if (reg.GetValue("tls") == null)
-            {
-                reg.SetValue("tls", true.ToString());
-            }
-            else
-            {
-                chbSSL.Checked = Convert.ToBoolean(reg.GetValue("tls"));
-            }
-            //Ignore Validate Certificate
-            if (reg.GetValue("ignoreValidade") == null)
-            {
-                reg.SetValue("ignoreValidade", false.ToString());
-            }
-            else
-            {
-                chbIgnore.Checked = Convert.ToBoolean(reg.GetValue("ignoreValidade"));
-            }
-            //email
-            if (reg.GetValue("email") == null)
-            {
-                reg.SetValue("email", "");
-            }
-            else
-            {
-                tbEmail.Text = reg.GetValue("email").ToString();
-            }
-            //password
-            if (reg.GetValue("password") == null)
-            {
-                reg.SetValue("password", "");
-            }
-            else
-            {
-                tbPassword.Text = "changeme";
-            }
-            //showOnlyAutoresponder
-            if (reg.GetValue("showOnlyAutoresponder") == null)
-            {
-                reg.SetValue("showOnlyAutoresponder", false.ToString());
-            }
-            else
-            {
-                chbAutoresponder.Checked = Convert.ToBoolean(reg.GetValue("showOnlyAutoresponder"));
-            }
-            decimal fs;
-            //fontSize
-            if (reg.GetValue("fontSize") == null)
-            {
-                reg.SetValue("fontSize", "12");
-            }
-            else
-            {
-                fs = 12;
-                if (decimal.TryParse(reg.GetValue("fontSize").ToString(), out fs))
-                {
-
-                }
-                numericFontSize.Value = fs;
-            }
-            //Debug
-            if (reg.GetValue("debug") == null)
-            {
-                reg.SetValue("debug", false.ToString());
-            }
-            else
-            {
-                chbDebug.Checked = Convert.ToBoolean(reg.GetValue("debug"));
-            }
-            //fixBuffer
-            if (reg.GetValue("fixBuffer") == null)
-            {
-                reg.SetValue("fixBuffer", "0");
-            }
-            else
-            {
-                fs = 0;
-                if (decimal.TryParse(reg.GetValue("fixBuffer").ToString(), out fs))
-                {
-
-                }
-                numericFixBuffer.Value = fs;
-            }
-            //checkUpdate
-            if (reg.GetValue("checkUpdate") == null)
-            {
-                reg.SetValue("checkUpdate", true.ToString());
-            }
-            else
-            {
-                chbUpdate.Checked = Convert.ToBoolean(reg.GetValue("checkUpdate"));
-            }
-            //update
-            if (chbUpdate.Checked)
-            {
-                if (chbDebug.Checked)
-                {
-                    Utils.LogToFile("Check update...");
-                }
-                string file0;
-                try
-                {
-                    string version = this.webclient.DownloadString("https://raw.githubusercontent.com/kamilmroczkowski/ManageSieveKM/refs/heads/main/Releases/version.txt").Trim();
-                    if (chbDebug.Checked)
-                    {
-                        Utils.LogToFile("Check version in server: " + version);
-                    }
-                    if (System.Reflection.Assembly.GetEntryAssembly().GetName().Version.ToString() != version.Trim())
-                    {
-                        if (MessageBox.Show("Release new version - apply update program?", "Update", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
-                        {
-                            if (chbDebug.Checked)
-                            {
-                                Utils.LogToFile("Version is diffrent... update.");
-                            }
-                            file0 = "ManageSieveKM.exe";
-                            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + file0))
-                            {
-                                if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + file0 + ".bak"))
-                                {
-                                    File.Delete(AppDomain.CurrentDomain.BaseDirectory + file0 + ".bak");
-                                }
-                                File.Move(AppDomain.CurrentDomain.BaseDirectory + file0, AppDomain.CurrentDomain.BaseDirectory + file0 + ".bak");
-                            }
-                            this.webclient.DownloadFile(new Uri("https://raw.githubusercontent.com/kamilmroczkowski/ManageSieveKM/refs/heads/main/Releases/" + version + "/" + file0), AppDomain.CurrentDomain.BaseDirectory + file0);
-                            Process.Start(Application.ExecutablePath);
-                            Process.GetCurrentProcess().Kill();
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    string error = ex.Message;
-                    if (ex.InnerException != null)
-                    {
-                        error += Environment.NewLine + ex.InnerException.Message;
-                    }
-                    MessageBox.Show("Update error: " + error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
+            new Loading(flushConfig).ShowDialog();
             //Show autoresponder only
-            if (chbAutoresponder.Checked)
+            if (Configuration.ShowOnlyAutoresponder)
             {
                 if (this.Connect())
                 {
@@ -241,31 +66,7 @@ namespace ManageSieveKM
 
         private bool Connect()
         {
-            if (tbHost.Text == "" || tbPort.Text == "" || tbEmail.Text == "" || tbPassword.Text == "")
-            {
-                MessageBox.Show("Please fill all text boxes (host, port, email and password).", "Stop",
-                    MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                return false;
-            }
-            int port;
-            if (int.TryParse(tbPort.Text, out port))
-            {
-                if (port < 1 || port > 65535)
-                {
-                    MessageBox.Show("Please write correct port number.", "Stop",
-                        MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                    return false;
-                }
-            }
-            else
-            {
-                MessageBox.Show("Please write correct port number.", "Stop",
-                    MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                return false;
-            }
-            this.sieve = new SieveConnect(tbHost.Text, tbEmail.Text, 
-                Utils.Decrypt(reg.GetValue("password").ToString(), this.encryptionKey), 
-                port, chbSSL.Checked, chbIgnore.Checked, chbDebug.Checked);
+            this.sieve = new SieveConnect();
             if (this.sieve.Connect())
             {
                 return true;
@@ -274,34 +75,6 @@ namespace ManageSieveKM
             {
                 MessageBox.Show("Can't log in! Error: " + this.sieve.Errors, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
-            }
-        }
-
-        private void tbHost_Leave(object sender, EventArgs e)
-        {
-            reg.SetValue("host", tbHost.Text);
-        }
-
-        private void tbPort_Leave(object sender, EventArgs e)
-        {
-            reg.SetValue("port", tbPort.Text);
-        }
-
-        private void tbEmail_Leave(object sender, EventArgs e)
-        {
-            reg.SetValue("email", tbEmail.Text);
-        }
-
-        private void chbSSL_Leave(object sender, EventArgs e)
-        {
-            reg.SetValue("tls", chbSSL.Checked.ToString());
-        }
-
-        private void tbPassword_Leave(object sender, EventArgs e)
-        {
-            if (tbPassword.Text != "changeme")
-            {
-                reg.SetValue("password", Utils.Encrypt(tbPassword.Text, this.encryptionKey));
             }
         }
 
@@ -344,7 +117,7 @@ namespace ManageSieveKM
         {
             if (this.Connect())
             {
-                if (sieve.SendScript(this.listS[lbScripts.SelectedIndex].Name, tbScript.Text, numericFixBuffer.Value) == false)
+                if (sieve.SendScript(this.listS[lbScripts.SelectedIndex].Name, tbScript.Text.Trim()) == false)
                 {
                     string helper0 = "Try increasing the buffer by 2 and resend. Keep trying increase buffer until it works.";
                     if (this.sieve.Errors.IndexOf("Too many command arguments") == -1)
@@ -369,24 +142,14 @@ namespace ManageSieveKM
             }
         }
 
-        private void chbIgnore_Leave(object sender, EventArgs e)
-        {
-            reg.SetValue("ignoreValidade", chbIgnore.Checked.ToString());
-        }
-
         private void btAbout_Click(object sender, EventArgs e)
         {
             new About().ShowDialog();
         }
 
-        private void chbAutoresponder_CheckedChanged(object sender, EventArgs e)
-        {
-            reg.SetValue("showOnlyAutoresponder", chbAutoresponder.Checked.ToString());
-        }
-
         private void Form1_Shown(object sender, EventArgs e)
         {
-            if (chbAutoresponder.Checked)
+            if (Configuration.ShowOnlyAutoresponder)
             {
                 this.Close();
             }
@@ -400,24 +163,9 @@ namespace ManageSieveKM
             }
         }
 
-        private void chbDebug_CheckedChanged(object sender, EventArgs e)
+        private void btConfig_Click(object sender, EventArgs e)
         {
-            reg.SetValue("debug", chbDebug.Checked.ToString());
-        }
-
-        private void chbUpdate_CheckedChanged(object sender, EventArgs e)
-        {
-            reg.SetValue("checkUpdate", chbUpdate.Checked.ToString());
-        }
-
-        private void numericFixBuffer_ValueChanged(object sender, EventArgs e)
-        {
-            reg.SetValue("fixBuffer", numericFixBuffer.Value.ToString());
-        }
-
-        private void numericFontSize_ValueChanged(object sender, EventArgs e)
-        {
-            reg.SetValue("fontSize", numericFontSize.Value.ToString());
+            new Config().ShowDialog();
         }
     }
 }

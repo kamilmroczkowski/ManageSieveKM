@@ -15,9 +15,6 @@ namespace ManageSieveKM
 {
     public class SieveConnect
     {
-        private string _host, _email, _password;
-        private int _port;
-        private bool _tls, _ignoreValidation, _debug;
         private string _errors = "";
 
         private TcpClient client = new TcpClient();
@@ -26,20 +23,13 @@ namespace ManageSieveKM
 
         private string loginBase64;
 
-        public SieveConnect(string host, string email, string password, int port, bool tls, bool ignoreValidation, bool debug)
+        public SieveConnect()
         {
-            _host = host;
-            _email = email;
-            _password = password;
-            _port = port;
-            _tls = tls;
-            _ignoreValidation = ignoreValidation;
-            _debug = debug;
             List<byte> loginArray = new List<byte>();
             loginArray.Add(0x00);
-            loginArray.AddRange(Encoding.ASCII.GetBytes(email));
+            loginArray.AddRange(Encoding.ASCII.GetBytes(Configuration.Email));
             loginArray.Add(0x00);
-            loginArray.AddRange(Encoding.ASCII.GetBytes(password));
+            loginArray.AddRange(Encoding.ASCII.GetBytes(Utils.Decrypt(Configuration.Password, Configuration.EncryptionKey)));
             loginBase64 = "AUTHENTICATE \"PLAIN\" \"" + Convert.ToBase64String(loginArray.ToArray()) + "\"\r\n";
         }
 
@@ -54,32 +44,33 @@ namespace ManageSieveKM
             }
             else
             {
+                bool oldTls = Configuration.Tls;
                 string output = "";
                 try
                 {
-                    if (this._debug)
+                    if (Configuration.Debug)
                     {
-                        Utils.LogToFile("Connecting to: " + _host + ":" + _port);
+                        Utils.LogToFile("Connecting to: " + Configuration.Host + ":" + Configuration.Port);
                     }
-                    client = new TcpClient(_host, _port);
+                    client = new TcpClient(Configuration.Host, Configuration.Port);
                     client.ReceiveTimeout = 5000;
                     stream = client.GetStream();
-                    if (this._tls)
+                    if (Configuration.Tls)
                     {
-                        this._tls = false;
+                        Configuration.Tls = false;
                         output = this.Receive();
-                        if (this._debug)
+                        if (Configuration.Debug)
                         {
                             Utils.LogToFile(output);
                             Utils.LogToFile("Send StartTLS");
                         }
                         this.Send("StartTls\r\n");
                         output = this.Receive();
-                        if (this._debug)
+                        if (Configuration.Debug)
                         {
                             Utils.LogToFile(output);
                         }
-                        if (this._ignoreValidation)
+                        if (Configuration.IgnoreCert)
                         {
                             sslStream = new SslStream(client.GetStream(), false, VerifyServerCertificate, null);
                         }
@@ -89,23 +80,23 @@ namespace ManageSieveKM
                         }
                         //sslStream.ReadTimeout = 5000;
                         //sslStream.WriteTimeout = 5000;
-                        sslStream.AuthenticateAsClient(_host);
-                        this._tls = true;
+                        sslStream.AuthenticateAsClient(Configuration.Host);
+                        Configuration.Tls = true;
                     }
                     output += this.Receive();
-                    if (this._debug)
+                    if (Configuration.Debug)
                     {
                         Utils.LogToFile(output);
                         Utils.LogToFile("Login: " + this.loginBase64);
                     }
                     this.Send(this.loginBase64);
-                    if (this._debug)
+                    if (Configuration.Debug)
                     {
                         Utils.LogToFile(output);
                         Utils.LogToFile("Login: " + this.loginBase64);
                     }
                     string output2 = this.Receive();
-                    if (this._debug)
+                    if (Configuration.Debug)
                     {
                         Utils.LogToFile(output2);
                     }
@@ -122,12 +113,13 @@ namespace ManageSieveKM
                 }
                 catch (Exception ex)
                 {
+                    Configuration.Tls = oldTls;
                     this._errors = output + Environment.NewLine + ex.Message;
                     if (ex.InnerException != null)
                     {
                         this._errors += Environment.NewLine + ex.InnerException.Message;
                     }
-                    if (this._debug)
+                    if (Configuration.Debug)
                     {
                         Utils.LogToFile(this._errors);
                     }
@@ -144,7 +136,7 @@ namespace ManageSieveKM
         public void Send(string msg)
         {
             Byte[] dataOut = Encoding.UTF8.GetBytes(msg);
-            if (this._tls)
+            if (Configuration.Tls)
             {
                 sslStream.Write(dataOut, 0, dataOut.Length);
                 //sslStream.Flush();
@@ -161,7 +153,7 @@ namespace ManageSieveKM
             Byte[] dataIn = new Byte[length];
             string ret = "";
             int bytes = -1;
-            if (this._tls)
+            if (Configuration.Tls)
             {
                 bytes = sslStream.Read(dataIn, 0, dataIn.Length);
                 ret = Encoding.UTF8.GetString(dataIn, 0, bytes);
@@ -236,7 +228,7 @@ namespace ManageSieveKM
                                         scriptBody += scriptBodyA[i] + Environment.NewLine;
                                     }
                                 }
-                                listScripts.Add(new SieveScript(scriptName, scriptBody, active));
+                                listScripts.Add(new SieveScript(scriptName, scriptBody.Trim(), active));
                             }
                         }
                     }
@@ -248,7 +240,7 @@ namespace ManageSieveKM
                     {
                         this._errors += Environment.NewLine + ex.InnerException.Message;
                     }
-                    if (this._debug)
+                    if (Configuration.Debug)
                     {
                         Utils.LogToFile(this._errors);
                     }
@@ -257,38 +249,22 @@ namespace ManageSieveKM
             return listScripts;
         }
 
-        public int CountOccurrences(string source, string substring)
-        {
-            if (string.IsNullOrEmpty(source) || string.IsNullOrEmpty(substring))
-                return 0;
-
-            int count = 0;
-            int index = 0;
-
-            while ((index = source.IndexOf(substring, index)) != -1)
-            {
-                count++;
-                index += substring.Length;
-            }
-
-            return count;
-        }
-
-        public bool SendScript(string name, string body, decimal fixBuffer)
+        public bool SendScript(string name, string body)
         {
             bool ret = false;
             string r = "", output = "";
-            int bodyL = body.Length + (int)fixBuffer;
+            int bodyL = body.Length + (body.Length / 20);
+            string newbody = body + new string(' ', bodyL - body.Length - 2) + "\r\n"; //fix buffer errors
             try
             {
                 //check quota
-                if (this._debug)
+                if (Configuration.Debug)
                 {
                     Utils.LogToFile("HAVESPACE:");
                 }
                 this.Send("HAVESPACE \"" + name + "\" " + bodyL + "\r\n");
                 r = this.Receive();
-                if (this._debug)
+                if (Configuration.Debug)
                 {
                     Utils.LogToFile(r);
                 }
@@ -302,13 +278,13 @@ namespace ManageSieveKM
                     }
                 }
                 //check script syntax
-                if (this._debug)
+                if (Configuration.Debug)
                 {
                     Utils.LogToFile("CheckScript:");
                 }
-                this.Send("CheckScript {" + bodyL + "+}\r\n" + body + "\r\n");
+                this.Send("CheckScript {" + bodyL + "+}\r\n" + newbody);
                 r = this.Receive();
-                if (this._debug)
+                if (Configuration.Debug)
                 {
                     Utils.LogToFile(r);
                 }
@@ -322,13 +298,13 @@ namespace ManageSieveKM
                     }
                 }
                 //send script
-                if (this._debug)
+                if (Configuration.Debug)
                 {
                     Utils.LogToFile("Putscript:");
                 }
-                this.Send("Putscript \"" + name + "\" {" + bodyL + "+}\r\n" + body + "\r\n");
+                this.Send("Putscript \"" + name + "\" {" + bodyL + "+}\r\n" + newbody + "\r\n");
                 r = this.Receive();
-                if (this._debug)
+                if (Configuration.Debug)
                 {
                     Utils.LogToFile(r);
                 }
@@ -353,7 +329,7 @@ namespace ManageSieveKM
                 {
                     this._errors += Environment.NewLine + ex.InnerException.Message;
                 }
-                if (this._debug)
+                if (Configuration.Debug)
                 {
                     Utils.LogToFile(this._errors);
                 }
@@ -366,7 +342,7 @@ namespace ManageSieveKM
             if (client.Connected)
             {
                 this.Send("Logout\"\r\n");
-                if (this._tls)
+                if (Configuration.Tls)
                 {
                     sslStream.Close();
                 }
