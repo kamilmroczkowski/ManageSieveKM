@@ -168,7 +168,7 @@ namespace ManageSieveKM
                         int ir = subjectBody[1].IndexOf("redirect");
                         if (ir == -1)
                         {
-                            tbBody.Text = subjectBody[1].Substring(2, subjectBody[1].Length - 11).Trim();
+                            tbBody.Text = subjectBody[1].Substring(2, subjectBody[1].Length - 9).Trim();
                         }
                         else
                         {

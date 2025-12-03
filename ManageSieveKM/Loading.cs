@@ -65,6 +65,8 @@ namespace ManageSieveKM
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
+            string progVersion = System.Reflection.Assembly.GetEntryAssembly().GetName().Version.ToString();
+            this.debugLog("Start ManageSieveKM " + progVersion);
             this.debugLog("Read encryption key...");
             Configuration.EncryptionKey = Utils.GetEncryptionKey();
             RegistryKey currentUser = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64);
@@ -257,7 +259,7 @@ namespace ManageSieveKM
                             version = File.ReadAllText(Configuration.ServerUpdate + "version.txt").Trim();
                         }
                         this.debugLog("Check version in server: " + version);
-                        if (System.Reflection.Assembly.GetEntryAssembly().GetName().Version.ToString() != version.Trim())
+                        if (progVersion != version.Trim())
                         {
                             DialogResult dl = DialogResult.OK;
                             if (Configuration.SilentUpdate == false)

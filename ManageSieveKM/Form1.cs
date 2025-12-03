@@ -22,6 +22,7 @@ namespace ManageSieveKM
         public Form1(bool flushConfig = false)
         {
             InitializeComponent();
+            this.Text += " " + System.Reflection.Assembly.GetEntryAssembly().GetName().Version.ToString();
             new Loading(flushConfig).ShowDialog();
             //Show autoresponder only
             if (Configuration.ShowOnlyAutoresponder)
