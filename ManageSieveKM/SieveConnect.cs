@@ -52,8 +52,11 @@ namespace ManageSieveKM
                     {
                         Utils.LogToFile("Connecting to: " + Configuration.Host + ":" + Configuration.Port);
                     }
-                    client = new TcpClient(Configuration.Host, Configuration.Port);
+                    //client = new TcpClient(Configuration.Host, Configuration.Port);
+                    client = new TcpClient();
                     client.ReceiveTimeout = 5000;
+                    client.SendTimeout = 5000;
+                    client.Connect(Configuration.Host, Configuration.Port);
                     stream = client.GetStream();
                     if (Configuration.Tls)
                     {
@@ -253,7 +256,7 @@ namespace ManageSieveKM
         {
             bool ret = false;
             string r = "", output = "";
-            int bodyL = body.Length + (body.Length / 20);
+            int bodyL = body.Length + (body.Length / 10);
             string newbody = body + new string(' ', bodyL - body.Length - 2) + "\r\n"; //fix buffer errors
             try
             {
