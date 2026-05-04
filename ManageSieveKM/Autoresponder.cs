@@ -49,7 +49,15 @@ namespace ManageSieveKM
                     if (i != -1)
                     {
                         name = s.Substring(0, i);
-                        body = s.Substring(i + 3, s.Length - i - 5);
+                        string xzz = s.Substring(s.Length - 2);
+                        if (s.Substring(s.Length - 2) == "\r\n")
+                        {
+                            body = s.Substring(i + 3, s.Length - i - 5);
+                        }
+                        else
+                        {
+                            body = s.Substring(i + 3, s.Length - i - 3);
+                        }
                         vacation = "0";
                         if (s.IndexOf("vacation :subject") != -1)
                         {

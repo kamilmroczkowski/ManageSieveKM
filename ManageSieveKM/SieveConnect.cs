@@ -256,7 +256,7 @@ namespace ManageSieveKM
         {
             bool ret = false;
             string r = "", output = "";
-            int bodyL = body.Length + (body.Length / 10);
+            int bodyL = body.Length + (body.Length / 5);
             string newbody = body + new string(' ', bodyL - body.Length - 2) + "\r\n"; //fix buffer errors
             try
             {
