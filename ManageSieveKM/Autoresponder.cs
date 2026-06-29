@@ -182,7 +182,8 @@ namespace ManageSieveKM
                         {
                             string[] body = subjectBody[1].Split(new string[] { "redirect :copy" }, StringSplitOptions.None);
                             tbBody.Text = body[0].Substring(2, ir - 11);
-                            tbCopy.Text = body[1].Trim().Substring(1, body[1].Length - 5);
+                            //tbCopy.Text = body[1].Trim().Substring(1, body[1].Length - 5);
+                            tbCopy.Text = body[1].Split('"')[1];
                         }
                         string[] dateTime = body0.Split(new string[] { "\"iso8601\"" }, StringSplitOptions.None);
                         if (dateTime.Length > 1)
